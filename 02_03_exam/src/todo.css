@@ -1,0 +1,32 @@
+.todo-header {
+    margin: 0;
+    background: #16bffd;
+    padding: 20px;
+    text-align: center;
+    color : #fff;
+}
+
+.todo-content {
+    width : 1200px;
+    margin : 50px;
+}
+
+.todo {
+    list-style-type: none;
+    padding : 0px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    gap: 10px;
+}
+
+.todo-like{
+    width: 10%;
+}
+
+.todo-like > span{
+    cursor : pointer;    
+}
+
+.todo-text.todo-done {
+    text-decoration: line-through;
+}
