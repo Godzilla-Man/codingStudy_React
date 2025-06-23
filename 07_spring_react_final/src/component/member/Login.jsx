@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./member.css";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -14,8 +14,15 @@ export default function Login() {
     const setLoginMember = props.setLoginMember;
     */
 
-    //스토리지에 저장한 데이터 추출하기.
-    const {setIsLogined, setLoginMember, setAccessToken, setRefreshToken} = useUserStore();
+   
+   //스토리지에 저장한 데이터 추출하기.
+   const {isLogined, setIsLogined, setLoginMember, setAccessToken, setRefreshToken} = useUserStore();
+   
+   useEffect(function(){
+        if(!isLogined){ //외부에서 강제 로그아웃 시킨 경우
+            setLoginMember(null);
+        }
+   }, []);
 
     const [test, setTest] = useState('');
 

@@ -7,4 +7,8 @@ npm install sweetalert2 --foce    → 사용자에게 보여줄 알림창 (리�
 
 
 2025-06-20 임동주
-install zustand                   → 로그인 정보와 같은 애플리케이션 전역에 영향을 주는 상태를 관리하기 위해 설치
+npm install zustand               → 로그인 정보와 같은 애플리케이션 전역에 영향을 주는 상태를 관리하기 위해 설치
+
+
+2025-06-23 임동주
+npm install history --force       → 컴포넌트 외부(인터셉터)에서, 컴포넌트 전환을 위해 설치

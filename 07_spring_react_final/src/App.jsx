@@ -4,7 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import Join from './component/member/Join';
 import Main from './component/common/Main';
 import Login from './component/member/Login';
-import Test from './component/member/Test';
+import MemberMain from './component/member/MemberMain';
+
 import { useState } from 'react';
 
 /*
@@ -35,7 +36,6 @@ import { useState } from 'react';
     
 */
 
-
 function App() {
   //로그인 상태 변수 선언
   /*
@@ -50,8 +50,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Main />} />
             <Route path='/join' element={<Join />} />
-            <Route path='/login' element={<Login  />} />
-            <Route path='/test' element={<Test />} />
+            <Route path='/login' element={<Login  />} />   
+            <Route path='/member/*' element={<MemberMain />} /> {/* /member로 시작하는 path는 MemberMain 컴포넌트를 라우팅 */}
           </Routes>
         </main>
       <Footer/>

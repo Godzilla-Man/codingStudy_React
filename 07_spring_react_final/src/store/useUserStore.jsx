@@ -29,13 +29,13 @@ const useUserStore = create(
                 })
             },
             accessToken : null,
-            setAccessTokne : function(accessToken){
+            setAccessToken : function(accessToken){
                 set({
                     accessToken : accessToken
                 })
             },
-            refeshToken : null,
-            setRefeshToken : function(refreshToken){
+            refreshToken : null,
+            setRefreshToken : function(refreshToken){
                 set({
                     refreshToken : refreshToken
                 })

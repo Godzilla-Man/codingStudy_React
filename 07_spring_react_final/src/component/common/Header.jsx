@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../store/useUserStore";
 
 
@@ -64,7 +64,7 @@ function HeaderLink () {
 
     const {isLogined, setIsLogined, loginMember, setLoginMember, setAccessToken, setRefreshToken} = useUserStore();
 
-
+    const navigate = useNavigate();
     //로그아웃 Link 클릭 시, 동작 함수
     function logout(){
         /*
@@ -72,10 +72,11 @@ function HeaderLink () {
         setLoginMember(null);
         */
 
-        setIsLogined(false);
-        setLoginMember(null);
+        setIsLogined(false);        
         setAccessToken(null);
         setRefreshToken(null);
+
+        navigate('/login');
     }
 
 
@@ -85,7 +86,7 @@ function HeaderLink () {
                 isLogined ?
                 <>
                     <li>
-                        <Link to="/test">{loginMember.memberId}</Link>
+                        <Link to="/member">{loginMember.memberId}</Link>
                     </li>
                     <li>
                         <Link to="#" onClick={logout}>로그아웃</Link>
