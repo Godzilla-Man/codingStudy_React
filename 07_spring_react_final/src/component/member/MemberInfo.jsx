@@ -3,7 +3,6 @@ import createInstance from "../../axios/Interceptor";
 import useUserStore from "../../store/useUserStore";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 //마이페이지 - 내 정보
 export default function MemberInfo(){
@@ -16,33 +15,34 @@ export default function MemberInfo(){
     //환경변수 파일에 저장된 서버 URL 읽어오기
     const serverUrl = import.meta.env.VITE_BACK_SERVER;
     const axiosInstance = createInstance();
-    const {loginMember, setIsLogined, setLoginMember, setAccessToken, setRefreshToken} = useUserStore();    
+    const {loginMember, setIsLogined, setLoginMember, setAccessToken, setRefreshToken} = useUserStore();
 
     useEffect(function(){
-        //렌더링 후, 회원 정보 조회
+        //랜더링 후, 회원 정보 조회
         let options = {};
         options.url = serverUrl + '/member/' + loginMember.memberId;
         options.method = 'get';
 
         axiosInstance(options)
-        .then(function(res){            
+        .then(function(res){
             if(res.data.resData != null){
-                setMember(res.data.resData);
+                setMember(res.data.resData); 
             }
         })
         .catch(function(err){
             
         });
 
+
     }, []);
 
-    //회원 정보 수정 정보 입력 시, 호출 함수(onChange)
+    //회원 수정 정보 입력 시, 호출 함수 (onChange)
     function chgMember(e){
         member[e.target.id] = e.target.value;
         setMember({...member});
     }
 
-    //회원 정보 수정 버튼 클릭 시, 동작 함수   
+    //수정하기 버튼 클릭 시, 동작 함수
     function updateMember(){
         Swal.fire({
             title : '알림',
@@ -60,10 +60,10 @@ export default function MemberInfo(){
                 options.data = member;
 
                 axiosInstance(options)
-                .then(function(res){   
-
-                        //만약 스토리지(useUserStore)에 저장된 회원 객체(loginMember)에, 수정 대상 정보(이름, 전화번호)가 포함되어 있다면
-                        //스토리지 정보도 최신화 해주어야 한다.
+                .then(function(res){
+                    
+                    //만약 스토리지에 저장된 회원 객체(loginMember)에, 수정 대상 정보(이름, 전화번호)가 포함되어 있다면
+                    //스토리지 정보도 최신화 해주어야 한다.
                 })
                 .catch(function(err){
                     console.log(err);
@@ -73,41 +73,34 @@ export default function MemberInfo(){
     }
 
     //정상 삭제 후, 컴포넌트 전환을 위함.
-    const navigate = useNavigate();    
-
+    const navigate = useNavigate();
     //삭제하기 버튼 클릭 시, 동작 함수
     function deleteMember(){
         Swal.fire({
             title : '알림',
-            text : '회원 정보를 수정하시겠습니까?',
+            text : '회원을 탈퇴 하시겠습니까?',
             icon : 'warning',
             showCancelButton : true,
-            confirmButtonText : '수정하기',
+            confirmButtonText : '탈퇴하기',
             cancelButtonText : '취소'
         }).then(function(res){
             if(res.isConfirmed){
-                /*
                 let options = {};
                 options.url = serverUrl + '/member/' + loginMember.memberId;
                 options.method = 'delete'; //삭제 == DELETE
 
                 axiosInstance(options)
                 .then(function(res){
-                    Swal.fire({
-                        title : '알림',
-                        text : res.data.clientMsg,
-                        icon : res.data.alertIcon
-                    });
-                */
+                    
+                    if(res.data.resData){ //DB에서 정상 삭제된 경우
 
-                    if(res.data.resData){ //DB에서 정상 삭제
-
-                        //삭제 계정에 대한 토큰 스토리지 정보 초기화
+                        //스토리지 정보 초기화
                         setIsLogined(false);
                         setLoginMember(null);
                         setAccessToken(null);
                         setRefreshToken(null);
                         delete axiosInstance.defaults.headers.common['Authorization'];
+
 
                         navigate('/login'); //로그인 컴포넌트로 전환
                     }
@@ -146,11 +139,11 @@ export default function MemberInfo(){
                             </tr>
                             <tr>
                                 <th>
-                                    <label htmlFor="memberPhone" >전화번호</label>
+                                    <label htmlFor="memberPhone">전화번호</label>
                                 </th>
                                 <td className="left">
                                     <div className="input-item">
-                                        <input type="text" id="memberPhone" value={member.memberPhone} onChange={chgMember} />
+                                        <input type="text" id="memberPhone" value={member.memberPhone} onChange={chgMember}/>
                                     </div>
                                 </td>
                             </tr>

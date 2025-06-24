@@ -120,7 +120,9 @@ export default function Login() {
     return (
         <section className="section login-wrap">
             <div className="page-title">로그인</div>
-            <form onSubmit={function(e){
+            <form 
+                autoComplete="off" /* 자동 완성 기능 해제 및 input type=password 요소 존재 시, '비밀번호 유출' 경고 팝업 해제 */
+                onSubmit={function(e){
                 e.preventDefault(); //form태그 기본 이벤트 제어
                 login();
             }}>

@@ -5,6 +5,7 @@ import Join from './component/member/Join';
 import Main from './component/common/Main';
 import Login from './component/member/Login';
 import MemberMain from './component/member/MemberMain';
+import BoardMain from './component/board/BoardMain';
 
 import { useState } from 'react';
 
@@ -52,6 +53,7 @@ function App() {
             <Route path='/join' element={<Join />} />
             <Route path='/login' element={<Login  />} />   
             <Route path='/member/*' element={<MemberMain />} /> {/* /member로 시작하는 path는 MemberMain 컴포넌트를 라우팅 */}
+            <Route path='/board/*' element={<BoardMain />} />
           </Routes>
         </main>
       <Footer/>

@@ -34,7 +34,7 @@ function MainNavi () {
         <nav className="nav">
             <ul>
                  <li>
-                    <Link to="#">메뉴1</Link>
+                    <Link to="/board/list">게시판</Link>
                  </li>
                  <li>
                     <Link to="#">메뉴2</Link>
@@ -66,7 +66,9 @@ function HeaderLink () {
 
     const navigate = useNavigate();
     //로그아웃 Link 클릭 시, 동작 함수
-    function logout(){
+    function logout(e){
+        //기본이벤트 제어        
+        e.preventDefault();
         /*
         setIsLogin(false);
         setLoginMember(null);
