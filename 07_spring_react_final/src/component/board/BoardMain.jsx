@@ -3,6 +3,8 @@ import "./board.css";
 
 import BoardList from './BoardList'; 
 import BoardWrite from "./BoardWrite";
+import BoardView from './BoardView';
+import BoardUpdate from "./BoardUpdate";
 
 //게시판 메인
 export default function BoardMain(){
@@ -20,6 +22,8 @@ export default function BoardMain(){
         <Routes>
             <Route path="list" element={<BoardList />} />
             <Route path="write" element={<BoardWrite />} />
+            <Route path="view/:boardNo" element={<BoardView />} />
+            <Route path="update/:boardNo" element={<BoardUpdate />} />
         </Routes>
     );
 }

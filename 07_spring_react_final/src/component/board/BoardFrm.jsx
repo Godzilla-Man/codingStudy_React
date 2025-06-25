@@ -12,6 +12,16 @@ export default function BoardFrm(props){
     const boardFile = props.boardFile;
     const setBoardFile = props.setBoardFile;
 
+    
+    //수정 시, 전달 데이터 추출
+    const preveThumbPath = props.preveThumbPath;
+    const setPrevThumPath = props.setPrevThumPath;
+    const prevBoardFileList = props.prevBoardFileList;
+    const setPrevBoardFileList = props.setPrevBoardFileList;
+    const delBoardFileNo = props.delBoardFileNo;
+    const setDelBoardFileNo = props.setDelBoardFileNo
+    const serverUrl = import.meta.env.VITE_BACK_SERVER;
+
 
     //제목 변경 시, 호출 함수(onChange)
     function chgBoardTitle(e){
@@ -96,6 +106,12 @@ export default function BoardFrm(props){
                         thumbFileEl.current.click(); 
                     }}></img>                
                  :
+                    preveThumbPath
+                    ?
+                    <img src={serverUrl + "/board/thumb/" + preveThumbPath.substring(0, 8) + "/" + preveThumbPath} onClick={function(){
+                        thumbFileEl.current.click(); 
+                    }} />
+                    :
                     <img src="/images/default_img.png" onClick={function(e){
                         //e.target == img 요소 객체
                         //e.target의 속성을 이용해서, 다음 요소인 input을 동적으로 click 하는게 가능하지만, React에서 권장하지 않음.
@@ -140,6 +156,31 @@ export default function BoardFrm(props){
                             <th>첨부파일 목록</th>
                             <td>
                                 <div className="board-file-wrap">
+                                    {
+                                        prevBoardFileList
+                                        ? prevBoardFileList.map(function(oldFile, index){
+
+                                            //기존 파일 삭제 아이콘 클릭 시, 호출 함수
+                                            function deleteFile(){
+                                                const newFileList = prevBoardFileList.filter(function(fOldFile, fIndex){
+                                                    return oldFile != fOldFile;
+                                                })
+                                                setPrevBoardFileList(newFileList); //화면에서 삭제
+
+                                                //서버에서도 파일 삭제를 위해, 삭제 아이콘을 클릭한 파일의 파일 번호를 변수에 세팅
+                                                setDelBoardFileNo([...delBoardFileNo, oldFile.boardFileNo]);
+                                            }
+
+                                            //oldFile == BoardFile 객체
+                                            return <p key={"old-file"+index}>
+                                                        <span className="fileName">{oldFile.fileName}</span> 
+                                                        <span className="material-icons del-file-icon" onClick={deleteFile}>
+                                                            delete
+                                                        </span>
+                                                   </p>
+                                          })
+                                        : ''
+                                    }
                                     {
                                         boardFileImg.map(function(fileName, index){
 

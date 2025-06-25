@@ -83,7 +83,7 @@ export default function BoardWrite(){
                             setBoardFile={setBoardFile} />
 
                 <div className="board-content-wrap">
-                    <ToastEditor boardContent={boardContent} setBoardContent={setBoardContent} />
+                    <ToastEditor boardContent={boardContent} setBoardContent={setBoardContent} type={0}/>
                 </div>
                 <div className="button-zone">
                     <button type="submit" className="btn-primary lg">

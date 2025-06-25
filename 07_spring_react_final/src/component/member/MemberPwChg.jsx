@@ -56,7 +56,7 @@ export default function MemberPwChg(){
     }
 
     //비밀번호 정상 변경 후, 컴포넌트 전환을 위함
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     //비밀번호 변경하기 버튼 클릭 시, 동작 함수
     function updatePw(){

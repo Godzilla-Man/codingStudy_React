@@ -87,7 +87,7 @@ function setInterceptors(instance) {
 								}
 						   })
 						   .catch(function(error){
-								return Promis.reject(error);
+								return Promise.reject(error);
 						   })
 				}else{ //서버 응답 코드 403 (토큰 만료) && 헤더에 refreshToken이 포함된 경우 => refreshToken이 만료된 경우.
 					Swal.fire({

@@ -9,6 +9,7 @@ export default function ToastEditor(props){
 
     const boardContent = props.boardContent;
     const setBoardContent = props.setBoardContent;
+    const type = props.type; //등록 : 0, 수정 : 1
 
     const serverUrl = import.meta.env.VITE_BACK_SERVER;
     const axiosInstace = createInstance();
@@ -64,8 +65,22 @@ export default function ToastEditor(props){
         <div style={{width : '100%', marginTop : '20px'}}>
             {/*
                 initialEditType="wysiwyg"   =>  HTML 작성 없이, 일반 텍스트로 작성 가능
+
+                아래 조건식 작성 이유 
+
+                수정인경우 BoardUpdate가 렌더링 되면서, 호출하고 있는 에디터도 렌더링 됨.
+                이후, 서버에서 조회해온 게시글 정보로 State 변수를 변경하면 리렌더링이 일어남. 
+                이 때, 에디터가 다시 그려지지 않는다. 
+
+                (1) BoardUpdate 컴포넌트로 전환 시, boardContent는 초기값인 빈 문자열을 가지고 있다. 
+                    이때, 에디터는 렌더링 되지 않음. 
+                (2) BoardUpdate의 useEffect에 전달한 함수가 실행되고, boardContent 변수를 변경함. 
+                    이때, boardContent는 빈 문자열이 아니므로, 아래 조건식에 만족하여
+                    에디터가 렌더링 된다. 
+                
             */}
-            <Editor ref={editorRef}
+            {type == 0 || (type == 1 && boardContent != '')            
+                ? <Editor ref={editorRef}
                     initialValue={boardContent}
                     initialEditType="wysiwyg"
                     language="ko-KR"
@@ -73,10 +88,10 @@ export default function ToastEditor(props){
                     onChange={changeContent}
                     hooks={{
                         addImageBlobHook : uploadImg
-                    }}
-            >
-                
-            </Editor>
+                    }}>
+                  </Editor>
+                : ''            
+            }
         </div>
     )
 }
