@@ -4,7 +4,7 @@ import useUserStore from "../../store/useUserStore";
 import LeftMenu from "../common/LeftMenu";
 import MemberInfo from './MemberInfo';
 import MemberPwChg from './MemberPwChg';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 //마이페이지 메인
 export default function MemberMain() {
@@ -17,10 +17,14 @@ export default function MemberMain() {
     //스토리지에서 회원 정보 추출
     const {loginMember} = useUserStore();
 
+    const navigate = useNavigate();
+
     useEffect(function(){
         if(loginMember.memberLevel == 1){ //관리자
-            setMenuList([...menuList], {url : '/admin', text : '관리자 페이지'});
+            setMenuList([...menuList, {url : '/admin', text : '관리자 페이지'}]);
         }
+
+        navigate('/member/info');
     }, []);
     
     return(

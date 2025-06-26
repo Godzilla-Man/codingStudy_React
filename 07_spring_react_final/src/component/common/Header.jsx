@@ -19,7 +19,7 @@ export default function Header () {
         <header className="header">
             <div>
                 <div className="logo">
-                    <Link to="#">DJ'S WEB</Link>
+                    <Link to="/">DJ'S WEB</Link>
                 </div>
                 <MainNavi />
                 <HeaderLink />
